@@ -6,7 +6,7 @@ from airflow.operators.python_operator import PythonOperator
 
 
 def print_hello():
-    print("Hello Satish Reddy")
+    print("Hello SatishReddy")
 
 
 default_args = {
