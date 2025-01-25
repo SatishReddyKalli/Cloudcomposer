@@ -13,8 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID_DEV }}   # Replace with your dev project secret
-      COMPOSER_BUCKET: ${{ secrets.COMPOSER_BUCKET_DEV }}  # Replace with your dev Composer bucket secret
+      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      COMPOSER_BUCKET_DEV: ${{ secrets.COMPOSER_BUCKET_DEV }}
+      GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
     steps:
       # Step 1: Checkout the code from the repository
@@ -29,9 +30,9 @@ jobs:
 
       # Step 3: Set the active GCP project
       - name: Set GCP Project
-        run: gcloud config set project ${{ secrets.GCP_PROJECT_ID_DEV }}
+        run: gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
 
       # Step 4: Upload DAGs to Cloud Composer
       - name: Upload DAGs to Cloud Composer
         run: |
-          gsutil -m rsync -r dags/ gs://${{ secrets.COMPOSER_BUCKET }}/dags/
+          gsutil -m rsync -r dags/ gs://${{ secrets.COMPOSER_BUCKET_DEV }}/dags/
